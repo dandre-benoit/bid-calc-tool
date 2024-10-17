@@ -1,6 +1,6 @@
 # The Bid Calculation Tool
 
-## Plan
+## Planning
 
 ### Configuration
 ```php

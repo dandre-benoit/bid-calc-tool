@@ -65,4 +65,5 @@ Develop an application that will allow a buyer to calculate the total price of a
 
 ## Documentation
 
-- [Planification](./docs/plan.md)
+- [Planning](./docs/planning.md)
+- [Timeline](./docs/timeline.md)
