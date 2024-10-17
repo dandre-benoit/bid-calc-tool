@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "e23c33b7-18d1-49c8-b33e-78e341e630cc",
+		"name": "Bid Calculation Tool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38706059"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8000/api/calc-total-cost",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vehicule_type\": \"common\",\r\n    \"vehicule_price_usd\": 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/calc-total-cost",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"calc-total-cost"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
