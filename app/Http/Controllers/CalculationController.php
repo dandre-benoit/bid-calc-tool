@@ -7,34 +7,45 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class CalculationController extends Controller
 {
-    public function calculateTotalCost(): JsonResponse
+    public function calculateTotalCost() : JsonResponse
     {
         $type = request()->input('vehicule_type', '');
         $price = request()->float('vehicule_price_usd');
 
         $fees = $this->getFeesForVehiculeType($type);
 
-        if (!$price) {
+        if (! $price) {
             throw new BadRequestHttpException("Invalid vehicule price!");
         }
+
+        $cost = [
+            'vehicule_price_usd' => $price,
+            'basic_fee_usd' => clamp(
+                $price * $fees['basic_fee_rate'],
+                $fees['basic_fee_min_usd'],
+                $fees['basic_fee_max_usd']
+            ),
+            'special_fee_usd' => $price * $fees['special_fee_rate'],
+            'association_fee_usd' => between(
+                $price, 
+                $fees['association_fee_range']
+            ),
+            'storage_fee_usd' => $fees['storage_fee_usd'],
+        ];
 
         return response()->json([
             'status_code' => 200,
             'vehicule_type' => $type,
-            'vehicule_price_usd' => $price,
-            'basic_fee_usd' => 50,
-            'special_fee_usd' => 20,
-            'association_fee_usd' => 10,
-            'storage_fee_usd' => $fees['storage_fee_usd'],
-            'vehicule_total_price_usd' => 1180
+            ...$cost,
+            'vehicule_total_price_usd' => array_sum($cost)
         ]);
     }
 
-    public function getFeesForVehiculeType(string $type): array
+    public function getFeesForVehiculeType(string $type) : array
     {
         $config = config('fees');
 
-        if (!key_exists($type, $config['vehicule_types'])) {
+        if (! key_exists($type, $config['vehicule_types'])) {
             throw new BadRequestHttpException("Invalid vehicule type!");
         }
 
@@ -43,4 +54,5 @@ class CalculationController extends Controller
             $config['vehicule_types'][$type]
         );
     }
+
 }
