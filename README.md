@@ -64,3 +64,5 @@ Develop an application that will allow a buyer to calculate the total price of a
 | **$ 1000000.00**  | Luxury       | $ 200.00  | $ 40000.00 | $ 20.00       | $ 100.00 | **$ 1040320.00** |
 
 ## Documentation
+
+- [Planification](./docs/plan.md)
