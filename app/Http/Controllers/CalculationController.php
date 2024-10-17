@@ -40,7 +40,7 @@ class CalculationController extends Controller
 
         return array_replace_recursive(
             $config['defaults'],
-            $config[$type]
+            $config['vehicule_types'][$type]
         );
     }
 }

@@ -18,4 +18,4 @@ use App\Http\Controllers\CalculationController;
 //    return $request->user();
 //});
 
-Route::middleware(['api'])->post('/calc-total-cost', [CalculationController::class, 'calculateTotalCost']);
+Route::middleware('api')->post('/calc-total-cost', [CalculationController::class, 'calculateTotalCost']);
