@@ -9,8 +9,8 @@ class CalculationController extends Controller
 {
     public function calculateTotalCost() : JsonResponse
     {
-        $type = request()->input('vehicule_type', '');
-        $price = request()->float('vehicule_price_usd');
+        $type = request()->string('vehicule_type', '');
+        $price = request()->float('vehicule_price_usd', 0);
 
         $fees = $this->getFeesForVehiculeType($type);
 
@@ -34,7 +34,6 @@ class CalculationController extends Controller
         ];
 
         return response()->json([
-            'status_code' => 200,
             'vehicule_type' => $type,
             ...$cost,
             'vehicule_total_price_usd' => array_sum($cost)

@@ -55,7 +55,6 @@ POST /api/calc-total-cost HTTP/1.1
 Response
 ```JSON
 {
-    "status_code": 200,
     "vehicule_type": "common",
     "vehicule_price_usd": 1000,
     "basic_fee_usd": 50,
