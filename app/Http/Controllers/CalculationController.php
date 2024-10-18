@@ -37,7 +37,7 @@ class CalculationController extends Controller
         ];
 
         return response()->json([
-            ...$cost,
+            ...array_map( fn(float $value) => round($value, 2), $cost),
             'vehicule_total_price_usd' => array_sum($cost)
         ]);
     }
