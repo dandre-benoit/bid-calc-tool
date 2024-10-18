@@ -56,7 +56,7 @@ debouncedWatch([vehiculeType, vehiculePriceUsd], ([vehicule_type, vehicule_price
             width="99" height="45" style="max-height:45px;height:auto;" alt="Progi Logo"
             data-retina_logo_url="https://progi.com/wp-content/uploads/2018/02/Progi_forme_197x89.png"
             class="fusion-standard-logo">
-        <h1>The Bid Calculation Tool</h1>
+        <h1>The Bid Calculation&nbsp;Tool</h1>
         <div class="content">
             <div>
                 <table>
