@@ -3,6 +3,13 @@ import { debouncedWatch, useFetch } from '@vueuse/core'
 import { reactive, ref } from 'vue';
 import { toCurrency, toNumber } from './helpers';
 
+const props = defineProps({
+    endpoint: {
+        type: String,
+        default: ''
+    }
+});
+
 export interface TotalCost {
     vehicule_price_usd: number,
     basic_fee_usd: number,
@@ -25,13 +32,16 @@ const cost = reactive<TotalCost>({
     vehicule_total_price_usd: 0
 });
 
-const { isFetching, post } = useFetch('/api/calc-total-cost', {
+const { isFetching, post } = useFetch(`${props.endpoint}/api/calc-total-cost`, {
     /** @ts-ignore */
     afterFetch: ({ data }) => {
         Object.assign(cost, data);
         errorMsg.value = null;
     },
-    onFetchError: ({ data }) => errorMsg.value = data.message,
+    onFetchError: (ctx) => {
+        errorMsg.value = ctx.data.message
+        return ctx;
+    },
     immediate: false,
 }).json();
 
@@ -42,7 +52,7 @@ debouncedWatch([vehiculeType, vehiculePriceUsd], ([vehicule_type, vehicule_price
         post({
             vehicule_type,
             vehicule_price_usd
-        }).execute();
+        })?.execute();
         // Format the price
         vehiculePriceUsd.value = toCurrency(vehicule_price_usd);
     }
@@ -61,49 +71,51 @@ debouncedWatch([vehiculeType, vehiculePriceUsd], ([vehicule_type, vehicule_price
             <div>
                 <table>
                     <tbody>
-                    <tr>
-                        <td>Vehicule Type</td>
-                        <td>
-                            <select v-model="vehiculeType">
-                                <option value="common">Common</option>
-                                <option value="luxury">Luxury</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Vehicule Price</td>
-                        <td><input ref="priceInput" type="text" v-model="vehiculePriceUsd"></td>
-                    </tr>
-                </tbody>
+                        <tr>
+                            <td>Vehicule Type</td>
+                            <td>
+                                <select data-testid="vehicule_type" v-model="vehiculeType">
+                                    <option value="common">Common</option>
+                                    <option value="luxury">Luxury</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Vehicule Price</td>
+                            <td><input data-testid="vehicule_price" ref="priceInput" type="text"
+                                    v-model="vehiculePriceUsd"></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <Transition>
                 <div v-if="isFetching" class="message">Please wait...</div>
-                <div v-else-if="errorMsg" class="error">{{ errorMsg }}</div>
+                <div v-else-if="errorMsg" class="error" data-testid="error_message">{{ errorMsg }}</div>
                 <div v-else-if="cost.vehicule_total_price_usd">
                     <table class="cost">
                         <tbody>
                             <tr>
                                 <td>Basic fee </td>
-                                <td>{{ toCurrency(cost.basic_fee_usd) }}</td>
+                                <td data-testid="basic_fee_usd">{{ toCurrency(cost.basic_fee_usd) }}</td>
                             </tr>
                             <tr>
                                 <td>Special Fee</td>
-                                <td>{{ toCurrency(cost.special_fee_usd) }}</td>
+                                <td data-testid="special_fee_usd">{{ toCurrency(cost.special_fee_usd) }}</td>
                             </tr>
                             <tr>
                                 <td>Association fee</td>
-                                <td>{{ toCurrency(cost.association_fee_usd) }}</td>
+                                <td data-testid="association_fee_usd">{{ toCurrency(cost.association_fee_usd) }}</td>
                             </tr>
                             <tr>
                                 <td>Storage fee</td>
-                                <td>{{ toCurrency(cost.storage_fee_usd) }}</td>
+                                <td data-testid="storage_fee_usd">{{ toCurrency(cost.storage_fee_usd) }}</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>Total</td>
-                                <td>{{ toCurrency(cost.vehicule_total_price_usd) }}</td>
+                                <td data-testid="vehicule_total_price_usd">{{ toCurrency(cost.vehicule_total_price_usd)
+                                    }}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -117,15 +129,15 @@ debouncedWatch([vehiculeType, vehiculePriceUsd], ([vehicule_type, vehicule_price
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 .v-enter-active {
-  transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
 }
 
 .v-leave-active {
-  transition: opacity 0s ease;
+    transition: opacity 0s ease;
 }
 
 .v-enter-from {
-  opacity: 0;
+    opacity: 0;
 }
 
 :root,
@@ -191,7 +203,7 @@ body {
         }
 
         input {
-            width: 6rem;
+            width: 7rem;
             text-align: right;
         }
 

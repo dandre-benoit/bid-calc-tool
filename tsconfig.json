@@ -6,6 +6,9 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "types": [
+      "@vitest/browser/providers/playwright"
+    ],
     "paths": {
       "@/*": ["resources/vue/*"]
     }
