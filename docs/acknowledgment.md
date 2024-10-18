@@ -41,4 +41,5 @@
         - Didn't want to lose time there
     - No library has been used, just to show some raw SCSS skill with media queries
     - I normaly use BEM (Block Element Modifier) naming convention
-- More time spent on unit tests instead of CSS
+- More time spent on unit testing instead of styling
+    - First time using Vitest

@@ -72,6 +72,7 @@ Develop an application that will allow a buyer to calculate the total price of a
 - Message while querying the result
 - Error message when the vehicule price is under or equal to zero
 - Use of a debounce of 500ms to prevent spaming the backend while typing the vehicule price
+- Did both frontend and backend unit testing
 
 ## Documentation
 - [Project Setup](./docs/setup/index.md)
