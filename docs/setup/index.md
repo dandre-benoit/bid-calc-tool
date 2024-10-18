@@ -3,43 +3,42 @@
 ## Run locally
 
 ### Prerequises
-
-- File .env created and configured (see .env.local file)
+- File .env created and configured (see .env.exemple file)
+- Composer installed
 - Node.js installed 
 - NPM installed
 - [See technologies](../technologies/index.md)
 
-### Endpoint
-```bash
-{PROTOCOL}://{HOST-NAME}:{PORT}/api
-
-# Default configuration
-http://localhost:8000/api
+### Local URL
 ```
-
-### Local Endpoint
-http://localhost:8000/api
+http://localhost:8000
+````
 
 ### Project Setup
 
 ```bash
-$ npm install`
+# install backend's dependencies
+$ composer install
+# generate the application key for encryption
+$ php artisan key:generate
+# install frontend's dependencies
+$ npm install
+# build the frontend's files
+$ npm run build
 ```
 
-### Compile And Run The Project
-
+### Run Production
 ```bash
-# development
+# Run the serveur Laravel
+$ php artisan serve
+```
+
+### Run Development
+```bash
+# run the serveur Laravel
+$ php artisan serve
+# then in a seperate process, run the development mode for hot reloading using vite
 $ npm run dev
-
-# watch mode
-$ npm run watch
-
-# build file for production mode
-$ npm run build
-
-# production mode
-$ npm run prod
 ```
 
 ### Run Tests
