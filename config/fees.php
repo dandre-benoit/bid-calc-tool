@@ -4,10 +4,10 @@ return [
     'defaults' => [
         'basic_fee_rate' => 0.1,
         'association_fee_range' => [
-            3001 => 20,
-            1001 => 15,
-            501 => 10,
-            1 => 5,
+            3000 => 20,
+            1000 => 15,
+            500 => 10,
+            0 => 5,
         ],
         'storage_fee_usd' => 100,
     ],

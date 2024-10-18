@@ -14,8 +14,11 @@ class CalculationController extends Controller
 
         $fees = $this->getFeesForVehiculeType($type);
 
-        if (! $price) {
-            throw new BadRequestHttpException("Invalid vehicule price!");
+        if ($price <= 0) {
+            return response()->json([
+                'message' => "The vehicule price must be a number higher than 0.",
+                'vehicule_price_usd' => $price
+            ]);
         }
 
         $cost = [
@@ -27,14 +30,13 @@ class CalculationController extends Controller
             ),
             'special_fee_usd' => $price * $fees['special_fee_rate'],
             'association_fee_usd' => between(
-                $price, 
+                $price,
                 $fees['association_fee_range']
             ),
             'storage_fee_usd' => $fees['storage_fee_usd'],
         ];
 
         return response()->json([
-            'vehicule_type' => $type,
             ...$cost,
             'vehicule_total_price_usd' => array_sum($cost)
         ]);
@@ -43,10 +45,6 @@ class CalculationController extends Controller
     public function getFeesForVehiculeType(string $type) : array
     {
         $config = config('fees');
-
-        if (! key_exists($type, $config['vehicule_types'])) {
-            throw new BadRequestHttpException("Invalid vehicule type!");
-        }
 
         return array_replace_recursive(
             $config['defaults'],
