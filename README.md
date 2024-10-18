@@ -63,6 +63,11 @@ Develop an application that will allow a buyer to calculate the total price of a
 | **$ 1100.00** 	| Common       | $ 50.00   | $ 22.00	| $ 15.00       | $ 100.00 | **$ 1287.00**    |
 | **$ 1000000.00**  | Luxury       | $ 200.00  | $ 40000.00 | $ 20.00       | $ 100.00 | **$ 1040320.00** |
 
+## Extras
+- Importable Postman collection JSON files
+- Project setup via .env file
+    - With template files
+
 ## Documentation
 - [Project Setup](./docs/setup/index.md)
 - [Technologies](./docs/technologies/index.md)
