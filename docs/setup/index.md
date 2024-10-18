@@ -9,7 +9,7 @@
 - NPM installed
 - [See technologies](../technologies/index.md)
 
-### Local URL
+### Default Local URL
 ```
 http://localhost:8000
 ````
@@ -43,13 +43,15 @@ $ npm run dev
 
 ### Run Tests
 
+#### Backend
+```bash
+# unit tests
+$ php artisan test
+```
+
+#### Frontend
+
 ```bash
 # unit tests
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```

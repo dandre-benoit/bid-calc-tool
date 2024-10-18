@@ -12,8 +12,10 @@
 ### Frameworks and libraries
 - [Laravel](https://laravel.com/docs/10.x) - v10.48*
 - [Typescript](https://www.typescriptlang.org/docs/) - v5.1*
+- [PHPUnit](https://phpunit.de/index.html) - v10.5*
 - [Vue](https://www.typescriptlang.org/docs/) - v3.5*
 - [Vitest](https://vitest.dev/) - v2.1*
+
 
 _* Version used at development_
 
